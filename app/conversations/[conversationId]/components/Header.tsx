@@ -2,6 +2,7 @@
 
 import { HiChevronLeft } from 'react-icons/hi'
 import { HiEllipsisHorizontal } from 'react-icons/hi2';
+import {MdVideoCall} from 'react-icons/md';
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Conversation, User } from "@prisma/client";
@@ -81,6 +82,16 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
           </div>
         </div>
       </div>
+      <MdVideoCall
+        size={32}
+        onClick={() => window.open('https://next-chat.daily.co/video-call-meeting', '_blank')}
+        className="
+          text-sky-500
+          cursor-pointer
+          hover:text-sky-600
+          transition
+        "
+      />
       <HiEllipsisHorizontal
         size={32}
         onClick={() => setDrawerOpen(true)}
