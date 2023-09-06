@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 import { CldUploadButton } from "next-cloudinary";
 import useConversation from "@/app/hooks/useConversation";
+import toast from "react-hot-toast";
 
 const Form = () => {
   const { conversationId } = useConversation();
@@ -30,12 +31,31 @@ const Form = () => {
     }
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setValue('message', '', { shouldValidate: true });
-    axios.post('/api/messages', {
-      ...data,
-      conversationId: conversationId
-    })
+  // const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  //   setValue('message', '', { shouldValidate: true });
+  //   axios.post('/api/messages', {
+  //     ...data,
+  //     conversationId: conversationId
+  //   })
+  // }
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+
+    try {
+      
+      setValue('message', '', { shouldValidate: true });
+      
+      await axios.post('/api/messages', {
+        ...data,
+        conversationId: conversationId
+      });
+  
+    } catch (error) {
+  
+      toast.error('An error occurred with your deployment');
+  
+    }
+  
   }
 
   const handleUpload = (result: any) => {
